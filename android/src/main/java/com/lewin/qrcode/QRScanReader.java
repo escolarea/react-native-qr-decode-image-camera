@@ -55,6 +55,14 @@ public class QRScanReader extends ReactContextBaseJavaModule  {
                     .addOnSuccessListener(new OnSuccessListener<List<Barcode>>() {
                         @Override
                         public void onSuccess(List<Barcode> barcodes) {
+
+                            if (barcodes.size() == 0 ){
++                                Log.d("NOT_OK", "No related QR code");
++                                scanner.close();
++                                promise.reject("NOT_OK", "No related QR code");
++                                return;
++                           }
+
                             Log.d("OK", " " +  barcodes.toString());
                             List<String> rawValues = new LinkedList<>();
                             for (Barcode barcode: barcodes) {
